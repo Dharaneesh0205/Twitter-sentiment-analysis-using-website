@@ -1,0 +1,82 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 28px 24px 28px;
+}
+h1 {
+    text-align: center;
+    color: #2575fc;
+    margin-bottom: 24px;
+}
+label {
+    font-weight: 600;
+}
+textarea, input[type="file"] {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #2575fc;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button[type="submit"]:hover {
+    background: #6a11cb;
+}
+.footer {
+    text-align: center;
+    margin-top: 24px;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+}
+.table th, .table td {
+    border: 1px solid #eaeaea;
+    padding: 8px 12px;
+    text-align: left;
+}
+.table th {
+    background: #f1f6fb;
+}
+.positive { color: #27ae60; }
+.negative { color: #e74c3c; }
+.neutral { color: #f1c40f; }
+#analyze-again {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: 600;
+}
+#analyze-again:hover {
+    text-decoration: underline;
+}

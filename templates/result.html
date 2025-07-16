@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-buttons {
+            margin: 18px 0 8px 0;
+            text-align: center;
+        }
+        .chart-buttons button {
+            margin: 0 8px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            background: #2575fc;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .chart-buttons button.active, .chart-buttons button:hover {
+            background: #6a11cb;
+        }
+        #chart-container {
+            max-width: 480px;
+            margin: 0 auto 24px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis Result</h1>
+        <p><strong>Overall Sentiment:</strong> <span class="{{ sentiment|lower }}">{{ sentiment }}</span></p>
+        <h3>Sentiment Counts:</h3>
+        <ul>
+            {% for label, count in counts.items() %}
+                <li><span class="{{ label|lower }}">{{ label }}</span>: {{ count }}</li>
+            {% endfor %}
+        </ul>
+        {% if chart_data %}
+        <div class="chart-buttons">
+            <button onclick="showChart('pie')" id="pie-btn" class="active">Pie Chart</button>
+            <button onclick="showChart('bar')" id="bar-btn">Bar Chart</button>
+            <button onclick="showChart('doughnut')" id="doughnut-btn">Doughnut Chart</button>
+        </div>
+        <div id="chart-container">
+            <canvas id="sentimentChart"></canvas>
+        </div>
+        {% endif %}
+        <h3>Sample Tweets:</h3>
+        <div class="table-container">
+            {{ table|safe }}
+        </div>
+        <a href="/" id="analyze-again">Analyze another tweet</a>
+    </div>
+    <script>
+        {% if chart_data %}
+        const chartData = {{ chart_data|safe }};
+        let chartType = 'pie';
+        let chartInstance = null;
+
+        function renderChart(type) {
+            const ctx = document.getElementById('sentimentChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.counts,
+                        backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function showChart(type) {
+            chartType = type;
+            renderChart(type);
+            document.querySelectorAll('.chart-buttons button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(type + '-btn').classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderChart('pie');
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

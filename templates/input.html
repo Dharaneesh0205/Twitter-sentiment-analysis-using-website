@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis Input</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis of Tweets</h1>
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+            <label for="tweet">Enter your tweet:</label>
+            <textarea id="tweet" name="tweet" rows="4" placeholder="Type your tweet here..."></textarea>
+            <p style="margin:10px 0;">OR</p>
+            <label for="csv_file">Upload CSV file:</label>
+            <input type="file" id="csv_file" name="csv_file" accept=".csv">
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+        <div class="footer">
+            <p>Powered by Flask and TextBlob</p>
+        </div>
+    </div>
+</body>
+</html>
